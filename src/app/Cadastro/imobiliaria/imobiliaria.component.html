@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col s12 m6 l4">
+      <h2>Cadastro de Imobiliaria</h2>
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Código"  type="number" [(ngModel)]="imobiliaria.idImobiliaria">
+      </mat-form-field > 
+    </div>
+    <div class="col s12 m6 l8">
+      <mat-form-field>
+        <input matInput placeholder="Nome"  type="text" [(ngModel)]="imobiliaria.nome">
+      </mat-form-field>
+    </div>
+</div>
+<div class="row footer-btn">
+  <div class="button-row col s12"> 
+    <button *ngIf="!edit" mat-raised-button color="orange" (click)="salvar()">Salvar</button>
+    <button *ngIf="edit" mat-raised-button color="orange"  (click)="atualizar()">Atualizar</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12">
+    <mat-table #table [dataSource]="dataSource" matSort class="table-striped">
+
+    <!-- Ações -->
+    <ng-container matColumnDef="actionsColumn">
+      <mat-header-cell *matHeaderCellDef>Ações</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+          <button mat-icon-button>
+            <mat-icon matTooltip="Excluir" (click)="excluir(element.idImobiliaria)">delete</mat-icon>
+          </button>  
+          <button mat-icon-button>
+            <mat-icon matTooltip="Editar"(click)="markEdit(element)">edit</mat-icon>
+          </button>
+      </mat-cell>
+    </ng-container>   
+
+    <ng-container matColumnDef="codigo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.idImobiliaria}} </mat-cell>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="nome">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Nome </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.nome}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  
+</div>
+</div>
+
